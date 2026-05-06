@@ -4,10 +4,6 @@ from scipy.io import wavfile
 from scipy.fft import fft, ifft
 import os
 
-# Настройка русского шрифта для matplotlib
-plt.rcParams['font.sans-serif'] = ['DejaVu Sans', 'Arial']
-plt.rcParams['axes.unicode_minus'] = False
-
 def read_wav_and_validate(filename):
     try:
         sample_rate, data = wavfile.read(filename)
@@ -34,7 +30,6 @@ def get_sample_count(total_samples):
         except ValueError:
             print("Ошибка: введите целое число!")
 
-
 def plot_scatter(time, samples, count, sample_rate):
     plt.figure(figsize=(12, 6))
     plt.scatter(time[:count], samples[:count], marker='*', s=20, c='blue', alpha=0.7)
@@ -45,7 +40,6 @@ def plot_scatter(time, samples, count, sample_rate):
     plt.tight_layout()
     plt.show()
 
-
 def plot_oscillogram(time, samples, sample_rate):
     plt.figure(figsize=(14, 6))
     plt.plot(time, samples, linewidth=0.8, color='green')
@@ -55,7 +49,6 @@ def plot_oscillogram(time, samples, sample_rate):
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.show()
-
 
 def compute_cepstrum(samples, sample_rate):
     spectrum = fft(samples)
@@ -79,14 +72,11 @@ def plot_cepstrum(cepstrum, quefrency, sample_rate):
     plt.tight_layout()
     plt.show()
 
-
 def plot_histogram(samples, sample_rate):
     #определяю количество интервалов по правилу Стёрджеса
     num_bins = int(1 + np.log2(len(samples)))
     plt.figure(figsize=(12, 6))
-    counts, bins, patches = plt.hist(samples, bins=num_bins, alpha=0.7,
-                                     color='purple', edgecolor='black')
-
+    counts, bins, patches = plt.hist(samples, bins=num_bins, alpha=0.7, color='purple', edgecolor='black')
     plt.xlabel('Амплитуда', fontsize=12)
     plt.ylabel('Частота попаданий', fontsize=12)
     plt.title('Гистограмма распределения амплитуд отсчетов', fontsize=14)
